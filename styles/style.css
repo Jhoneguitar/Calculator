@@ -1,0 +1,72 @@
+*{
+	box-sizing: border-box;
+	
+}
+
+body{
+	background-color: #221d1dd9;
+	font-family: 'Do Hyeon', sans-serif;
+
+}
+
+header{
+	text-align: center;
+	margin: 50px;
+}
+
+h1{
+	color: white;
+	font-size: 30px;
+}
+
+#cal-container{
+
+	margin: auto;
+	height: 400px;
+	width: 300px;
+	//border: 3px solid;
+	border-radius: 10px;
+	border-style: inset;
+	//border-color: snow;
+	padding: 10px;
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	grid-template-rows: repeat(6, 1fr);
+	grid-gap: 5px;
+	background-color: #9d0e3d8f;
+}
+
+.screen{
+	grid-column: 1/5;
+	width: 100%;
+	background-color: #ffffffe3;
+	border: 1px solid;
+	border-radius: 5px;
+	height: 66px;
+	text-align: end;
+	padding: 8px;
+	font-weight: bold;
+	border-color: white;
+	box-shadow: inset 0 0 12px #595959;
+}
+
+#current-result{
+	font-size: 2em;
+}
+
+#equal{
+	grid-column: 3/5;
+}
+
+button{
+	//height: 50px;
+	//width: 50px;
+	font-family: 'Do Hyeon', sans-serif;
+	font-size: 30px;
+    background-color: #595454;
+    color: white;
+}
+
+button:active{
+  	background-color: #000;
+}
