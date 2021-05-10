@@ -16,6 +16,9 @@ let contOper=0;
 let firstNum="";
 let secondNum="";
 
+
+
+
 //function to get the operation
 function operate(operator, a, b){
 	switch (operator){
@@ -34,68 +37,115 @@ function operate(operator, a, b){
 	}
 }
 
+
+
+
+//Getting the numbers
+numbers.forEach((number)=>{
+	number.addEventListener('click', (e)=>{
+		inputScreen(number.textContent);
+		//attachNumber(number.textContent);
+	});
+});
+
 //Display function
 function inputScreen(item){
-	if (item=="."&&operShow.includes(".")) return;
+	if (item=="."&&selNum.includes(".")) return;
 	operShow=operShow+item;
 	inputUser.innerHTML =operShow;
+
+	//Storing the ‘display value’ in a variable
+	if (Number(item)||item=="."||item=="0") {
+	selNum=selNum+item;
+	}
 }
-//function to get numbers
-function attachNumber(number){
-	if (number=="."&&selNum.includes(".")) return;
- 	selNum=selNum+number;
-}
-//function to remove last number
-function deleteNumber(){
-	operShow=operShow.slice(0,-1);
-    inputUser.innerHTML=operShow;
-    selNum=selNum.slice(0,-1);
-}
-//function to get the first numner
-function getFirstNumber(){
-	if (firstNum=="") {
-	 	firstNum=Number(selNum);
-	 	selNum="";	
-	 	return;
- 	}
-}
+
+
+
+
+//Getting the operator
+operators.forEach((operator)=>{
+	operator.addEventListener('click', (e)=>{
+		getOperator(operator.textContent);
+	});
+});
+
 //function to get the operator
+//and store the firstNumber
 function getOperator(itemOperator){
 	if (operShow==""&&itemOperator!="-") return;
-		if (contOper!=0) {
-			showResult();
-			oper=itemOperator;
-			inputScreen(oper);
-			return;
-		}
-		else{
-			oper=itemOperator;
-			contOper++;
-			inputScreen(oper);
-			getFirstNumber();
-		}
+	
+	inputScreen(itemOperator);
+
+	(contOper!=0)?showResult():getFirstNumber();
+
+	//Save the operation that has been chosen
+	oper=itemOperator;
 }
+
+//function to get the first numner
+function getFirstNumber(){
+	
+	if (operShow=="-") {
+	 	selNum="-";
+	 	return;	
+	}
+ 	
+ 	firstNum=Number(selNum);
+ 	selNum="";
+
+ 	contOper++;
+}
+
+
+
+
+//getting the equal operator
+equal.addEventListener('click', (e)=>{
+	if (oper==""||firstNum==""){
+		return
+	}else{
+		showResult();
+	}
+});
+
 //function to get the result
 function showResult(){
+
 	secondNum=Number(selNum);
+
 	if (secondNum==0&&oper=="/") {
 		cleanUp();
 		inputResult.innerHTML="Error";
 		return;
 	}
+
 	result=operate(oper,firstNum,secondNum);
+
 	if (!Number.isInteger(result)) {
 		if (result.toString().length>15) {
 			result=Number.parseFloat(result.toFixed(8));
 		}
 	}
+
 	firstNum=result;
+
 	selNum="";
+
 	if (contOper==0) {
-		operShow=firstNum.toString();
+		operShow=result.toString();
     }
+
     inputResult.innerHTML=result;
 }
+
+
+
+//getting the clean operator
+clean.addEventListener('click', (e)=>{
+	cleanUp();
+});
+
 //function to clean calculator
 function cleanUp(){
 	operShow = "";
@@ -108,40 +158,23 @@ function cleanUp(){
 	inputResult.innerHTML="";
 }
 
-//Getting the numbers
-numbers.forEach((number)=>{
-	number.addEventListener('click', (e)=>{
-		inputScreen(number.textContent);
-		attachNumber(number.textContent);
-	});
-});
 
-//Getting the operator
-operators.forEach((operator)=>{
-	operator.addEventListener('click', (e)=>{
-		getOperator(operator.textContent);
-	});
-});
 
-//getting the equal operator
-equal.addEventListener('click', (e)=>{
-	if (oper==""||firstNum==""){
-		return
-	}else{
-		contOper=0;
-		showResult();
-	}
-});
-
-//getting the clean operator
-clean.addEventListener('click', (e)=>{
-	cleanUp();
-});
 
 //getting the del number operator
 del.addEventListener('click', (e)=>{
 	deleteNumber();
 });
+
+//function to remove last number
+function deleteNumber(){
+	operShow=operShow.slice(0,-1);
+    inputUser.innerHTML=operShow;
+    selNum=selNum.slice(0,-1);
+}
+
+
+
 
 //getting percent number
 percent.addEventListener('click', (e)=>{
@@ -155,6 +188,9 @@ document.addEventListener('click', (e)=>{
 		document.activeElement.blur();
 	}
 });
+
+
+
 
 window.addEventListener('keydown', (key)=>{
 	switch(key.key){
@@ -170,7 +206,7 @@ window.addEventListener('keydown', (key)=>{
         case '9':
         case '.':
 			inputScreen(key.key);
-			attachNumber(key.key);
+			
 			break;
 		case '*':
         case '/':
