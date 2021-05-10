@@ -16,6 +16,8 @@ let contOper=0;
 let firstNum="";
 let secondNum="";
 
+let controlEqual=0;
+
 
 
 
@@ -76,10 +78,15 @@ function getOperator(itemOperator){
 	
 	inputScreen(itemOperator);
 
+	if (controlEqual==0) {
+
 	(contOper!=0)?showResult():getFirstNumber();
+
+	}
 
 	//Save the operation that has been chosen
 	oper=itemOperator;
+	controlEqual=0;
 }
 
 //function to get the first numner
@@ -104,7 +111,9 @@ equal.addEventListener('click', (e)=>{
 	if (oper==""||firstNum==""){
 		return
 	}else{
+		controlEqual=1;
 		showResult();
+		console.log("hola");
 	}
 });
 
