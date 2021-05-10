@@ -44,7 +44,6 @@ function operate(operator, a, b){
 numbers.forEach((number)=>{
 	number.addEventListener('click', (e)=>{
 		inputScreen(number.textContent);
-		//attachNumber(number.textContent);
 	});
 });
 
